@@ -8,7 +8,7 @@ prometheus:
     enabled: false
   thanosIngress:
     enabled: false
-    ingressClassName: alb
+    ingressClassName: nginx
     #hosts:
     #  - thanos-gateway.nas.nephtek.com
     annotations:
