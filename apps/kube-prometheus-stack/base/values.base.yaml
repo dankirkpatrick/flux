@@ -34,7 +34,7 @@ prometheus:
     storageSpec:
       volumeClaimTemplate:
         spec:
-          storageClassName: gp2
+          storageClassName: openebs-zfspv-default
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
@@ -110,7 +110,7 @@ alertmanager:
     storageSpec:
       volumeClaimTemplate:
         spec:
-          storageClassName: gp2
+          storageClassName: openebs-zfspv-default
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
@@ -129,7 +129,7 @@ grafana:
       type: loki
   persistence:
     enabled: true
-    storageClassName: gp2
+    storageClassName: openebs-zfspv-default
   resources:
     requests:
       memory: 225Mi
