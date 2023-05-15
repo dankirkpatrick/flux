@@ -15,7 +15,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./apps/cert-manager/dev-align-arm64/
+  path: ./apps/cert-manager/truenas/
   prune: false
   wait: true
   timeout: 5m0s
