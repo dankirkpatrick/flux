@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    kustomize.toolkit.fluxcd.io/name: app-kube-prometheus-stack
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
+  name: kps-config
+  namespace: monitoring
+data:
+  values.yaml: |
+    prometheus:
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
+      thanosIngress:
+        enabled: true
+        hosts:
+          - thanos-gateway.nas.nephtek.com
+        annotations:
+          cert-manager.io/cluster-issuer: nephtek-com-issuer
+      ingress:
+        hosts:
+          - prometheus.nas.nephtek.com
+        annotations:
+          cert-manager.io/cluster-issuer: nephtek-com-issuer
+      prometheusSpec:
+        thanos:
+          objectStorageConfig:
+            name: thanos-storage-config
+            key: thanos-storage-config.yaml
+        externalLabels:
+          cluster: truenas
+    thanosRuler:
+      serviceAccount:
+        name: kps-thanos
+        annotations:
+          cert-manager.io/cluster-issuer: nephtek-com-issuer
+    alertmanager:
+      config:
+        global:
+          smtp_auth_username: AKIAQ5CBIXL2AWR56BFT
+          smtp_auth_password: BNp9R4lZ9efySbV7M0zXOL3OuqTvKLtZfjcM+rXwhJQs
+      ingress:
+        annotations:
+          cert-manager.io/cluster-issuer: nephtek-com-issuer
+        hosts:
+          - alertmanager.nas.nephtek.com
+    grafana:
+      adminPassword: D8e!%g4keRy3Kmfk
+      ingress:
+        annotations:
+          cert-manager.io/cluster-issuer: nephtek-com-issuer
+        hosts:
+          - grafana.nas.nephtek.com
+      env:
+        GF_SERVER_DOMAIN: grafana.nas.nephtek.com
+        GF_SERVER_ROOT_URL: https://grafana.nas.nephtek.com
+        GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana.nas.nephtek.com
+        GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: pBHnxBljrh0w7hwlGWujUSZAOoBfRPmD

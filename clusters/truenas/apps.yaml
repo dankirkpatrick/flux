@@ -19,3 +19,25 @@ spec:
   prune: false
   wait: true
   timeout: 5m0s
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: app-kube-prometheus-stack
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  dependsOn:
+    - name: infra-namespaces
+    - name: infra-helmrepositories
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./apps/kube-prometheus-stack/truenas/
+  prune: false
+  wait: true
+  timeout: 5m0s

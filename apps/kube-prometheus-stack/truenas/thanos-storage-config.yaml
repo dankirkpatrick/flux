@@ -1,0 +1,6 @@
+type: S3
+config:
+  bucket: etw-thanos-metrics
+  endpoint: s3.us-east-1.amazonaws.com
+  region: us-east-1
+  aws_sdk_auth: true

@@ -1,0 +1,173 @@
+prometheus:
+  thanosService:
+    enabled: false
+  thanosServiceMonitor:
+    enabled: false
+  thanosIngress:
+    enabled: false
+    ingressClassName: alb
+    #hosts:
+    #  - thanos-gateway.nas.nephtek.com
+    annotations:
+      cert-manager.io/cluster-issuer: nephtek-com-issuer
+    paths:
+      - /
+    pathType: Prefix
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    #annotations:
+    #  cert-manager.io/cluster-issuer: nephtek-com-issuer
+    #hosts:
+    #  - prometheus.nas.nephtek.com
+    paths:
+      - /
+    pathType: Prefix
+  prometheusSpec:
+    replicas: 1
+    resources:
+      requests:
+        memory: 520Mi
+        cpu: 250m
+    #externalLabels:
+    #  cluster: truenas
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp2
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 100Gi
+
+thanosRuler:
+  enabled: false
+  serviceAccount:
+    name: kps-thanos
+
+alertmanager:
+  config:
+    global:
+      smtp_from: do-not-reply@etw.com
+      smtp_smarthost: email-smtp.changeme.amazonaws.com:587
+    mute_time_intervals:
+      - name: weekends
+        time_intervals:
+          - weekdays: ['sunday']
+          - weekdays: ['saturday']
+      - name: offhours
+        time_intervals:
+          - times:
+              - start_time: "04:00"
+                end_time: "12:00"
+    route:
+      group_by:
+        - job
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 12h
+      receiver: none
+      routes:
+        - receiver: null
+          matchers:
+            - alertname="InfoInhibitor"
+        #- receiver: dead-mans-switch
+        #  group_wait: 10s
+        #  group_interval: 30s
+        #  repeat_interval: 15s
+        #  matchers:
+        #    - alertname = Watchdog
+        - receiver: mail-devops
+          #mute_time_intervals:
+          #  - offhours
+          #  - weekends
+          group_wait: 10s
+          matchers:
+            - severity =~ "critical|warning"
+          continue: true
+    receivers:
+      #- name: dead-mans-switch
+      #  webhook_configs:
+      #    - url: http://dead-mans-switch.monitoring.svc:8080/webhook
+      - name: mail-devops
+        email_configs:
+          - to: dan@frissoncomputing.com
+      - name: none
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    #hosts:
+    #  - alertmanager.nas.nephtek.com
+    paths:
+      - /
+    pathType: Prefix
+  alertmanagerSpec:
+    replicas: 1
+    resources:
+      requests:
+        memory: 50Mi
+        cpu: 100m
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp2
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
+
+grafana:
+  adminPassword: "not-the-real-password"
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - grafana.nas.nephtek.com
+  additionalDataSources:
+    - name: Loki
+      url: http://loki-gateway.loki.svc.cluster.local
+      type: loki
+  persistence:
+    enabled: true
+    storageClassName: gp2
+  resources:
+    requests:
+      memory: 225Mi
+      cpu: 25m
+  monitoring:
+    rules:
+      labels:
+        release: kube-prometheus-stack
+  serviceMonitor:
+    enabled: true
+    labels:
+      release: kube-prometheus-stack
+  env:
+    #GF_SERVER_DOMAIN: grafana.nas.nephtek.com
+    #GF_SERVER_ROOT_URL: https://grafana.nas.nephtek.com
+    GF_USERS_VIEWERS_CAN_EDIT: "true"
+    GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
+    GF_AUTH_GENERIC_OAUTH_NAME: Nephtek SSO
+    GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP: "true"
+    #GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana.nas.nephtek.com
+    #GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: -secret-that-is-really-long-
+    GF_AUTH_GENERIC_OAUTH_SCOPES: openid profile email
+    GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://keycloak.nas.nephtek.com/realms/etw/protocol/openid-connect/auth
+    GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://keycloak.nas.nephtek.com/realms/etw/protocol/openid-connect/token
+    GF_AUTH_GENERIC_OAUTH_API_URL: https://keycloak.nas.nephtek.com/realms/etw/protocol/openid-connect/userinfo
+    GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: roles[?contains(@, 'admin')]  && 'Admin' || roles[?contains(@, 'editor')] && 'Editor' || 'Viewer'
+
+kubeControllerManager:
+  enabled: false
+
+kubeEtcd:
+  enabled: false
+
+kubeScheduler:
+  enabled: false
+
+defaultRules:
+  rules:
+    etcd: false
+    kubeControllerManager: false
+    kubeSchedulerRecording: false
