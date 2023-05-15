@@ -1,3 +1,6 @@
+promtheus-operator:
+  enabled: false
+
 prometheus:
   thanosService:
     enabled: false

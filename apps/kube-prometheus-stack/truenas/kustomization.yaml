@@ -5,9 +5,3 @@ resources:
 - ../base/
 - release.yaml
 - configmap.yaml
-secretGenerator:
-- name: thanos-storage-config
-  files:
-  - thanos-storage-config.yaml
-generatorOptions:
-  disableNameSuffixHash: true
