@@ -1,0 +1,19 @@
+prometheus:
+  servicemonitor:
+    enabled: true
+    labels:
+      release: kube-prometheus-stack
+resources:
+  requests:
+    cpu: 10m
+    memory: 38Mi
+caininjector:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 105Mi
+webhook:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 10Mi
