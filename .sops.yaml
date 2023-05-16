@@ -1,4 +1,6 @@
 creation_rules:
+  - path_regex: .*/truenas/values.yaml
+    pgp: B620B1488925A1B17D73C4A6F87AF8D7968C85E3
   - path_regex: .*/truenas/.*
     encrypted_regex: ^(data|stringData)$
     pgp: B620B1488925A1B17D73C4A6F87AF8D7968C85E3
