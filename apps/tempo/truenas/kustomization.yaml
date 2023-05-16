@@ -5,7 +5,7 @@ resources:
 - ../base/
 - release.yaml
 configMapGenerator:
-  - name: tempo-config
+  - name: tempo-distributed-config
     files:
       - values.yaml
 generatorOptions:
