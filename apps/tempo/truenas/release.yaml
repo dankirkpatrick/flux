@@ -14,8 +14,8 @@ spec:
       interval: 60m
   valuesFrom:
     - kind: ConfigMap
-      name: tempo-base-config
+      name: tempo-distributed-base-config
       valuesKey: values.base.yaml
     - kind: ConfigMap
-      name: tempo-config
+      name: tempo-distributed-config
       valuesKey: values.yaml
