@@ -1,4 +1,4 @@
-promtheusOperator:
+prometheusOperator:
   enabled: false
 
 prometheus:
