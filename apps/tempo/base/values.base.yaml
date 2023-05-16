@@ -1,0 +1,52 @@
+ingester:
+  persistence:
+    enabled: true
+
+traces:
+  jaeger:
+    grpc:
+      enabled: true
+    thriftBinary:
+      enabled: true
+    thriftCompact:
+      enabled: true
+    thriftHttp:
+      enabled: true
+  zipkin:
+    enabled: true
+  otlp:
+    http:
+      enabled: true
+    grpc:
+      enabled: true
+
+memcachedExporter:
+  enabled: true
+
+metaMonitoring:
+  serviceMonitor:
+    enabled: true
+    labels:
+      release: kube-prometheus-stack
+
+prometheusRule:
+  enabled: true
+  labels:
+    release: kube-prometheus-stack
+
+gateway:
+  enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - host: gateway-tempo.nas.nephtek.com
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      - secretName: tempo-gateway-tls
+        hosts:
+          - gateway-tempo.nas.nephtek.com
+    annotations:
+      cert-manager.io/cluster-issuer: nephtek-com-issuer

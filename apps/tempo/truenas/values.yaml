@@ -1,0 +1,37 @@
+gateway:
+    basicAuth:
+        enabled: true
+        username: tempouser
+        password: Rfs6%DMm$wXuK@uoco
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-05-16T14:48:20Z"
+    mac: ENC[AES256_GCM,data:csUopPQAFMJ5MNh5PT+Axxyb7YIAiM8gUw/Dq8TMqkPLIGLMhDdfhnbtK5CBJGATcSULmtLZrQh2MaapSP1s6HdxXG0d3iEw94cMxvAoMheNnPEXcw7X0oMIjDL6Ff6gRKEwjQzPsFTZuzzCnxNQiXuA4Q8FU9+7EzKbLSTnrs4=,iv:RMnMeuozImiWARE7yulF39WlGoqnRle5iLWeX/JoJBA=,tag:FHF5woSrzaq/VizY4Bxw2w==,type:str]
+    pgp:
+        - created_at: "2023-05-16T14:48:19Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMAyb6x/8CZJfJAQ//R8FxTy2ikuGMg9MLR2MlEMhvKxxo7Yy2WPirZCN8cTBX
+            usbMY8Njh0CLZWA4sN49I3UqKxWVj0RP6XS5JBJ12z3MtLQXacCxb7zFa+T5Nb3m
+            362GjAkQSv0lskJfpF8yCsbOZ7XkgsJXoy/Y7IVxSiAeEVdUS82l+DMGRirWon8j
+            BVL69nHYfgKUoWWqvo+DzVy5ZorVxzfQOCvOElvqEzr/xeCM+tyhENUjlIWRjkKA
+            1ZwUvKcHmccClzbWaFcGmGlI0jDoaAdqRBjxPltHLKsvlaObtl0+eSRQ2xv5QYZP
+            XTaaqEwnnuw8hJ/hPxJjx46V9F4lquve30k8whXGS8Q/0b8N+P293amJqhS5XwoD
+            ZWktrwgGN3pImZnfbF/Q4jE9p2RjpnDDBCvbIdZIzt4y/eHHW1wsweMoexjlHtJP
+            yefYaj9Hsl3Ph5WpPKvhMIulOl4f58WHh7Kh8GEMTHKrEkJIInooix1one4ffBII
+            Mxxu88aHiL8N0ViSaUbTfZ6f1v68INkgqI/7fY09/azMFIkkT4s7VqfVFl3bbu22
+            dgG07O8NWNZCNxvZWSBh1D3Qf0osLBNjLLMZBXrv325YvN1hb0F5sk5RTqw30bM8
+            YOdXVjipMRE7eGQBVIBHrYInqh54lgW74EPzvufA7B1ameZOlJMV7eQerhWmGfHU
+            aAEJAhCKrq9oENRiEhHPHBR26DhEr7yqnZa2YPeRaJ94Y1YDHeRjYdXEcdG7zre+
+            1KVOipXv+BzdmzImdXQEWVPbW6jRVqR5BjFVy7DuFZxq35zXvEPA9Iw9YemCWaHL
+            RumabiJXnh9Q
+            =gWUw
+            -----END PGP MESSAGE-----
+          fp: B620B1488925A1B17D73C4A6F87AF8D7968C85E3
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3

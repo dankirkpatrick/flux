@@ -1,60 +1,42 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  labels:
-    kustomize.toolkit.fluxcd.io/name: app-kube-prometheus-stack
-    kustomize.toolkit.fluxcd.io/namespace: flux-system
-  name: kps-config
-  namespace: monitoring
+    labels:
+        kustomize.toolkit.fluxcd.io/name: app-kube-prometheus-stack
+        kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: kps-config
+    namespace: monitoring
 data:
-  values.yaml: |
-    prometheus:
-      thanosService:
-        enabled: true
-      thanosServiceMonitor:
-        enabled: true
-      thanosIngress:
-        enabled: true
-        hosts:
-          - thanos-gateway.nas.nephtek.com
-        annotations:
-          cert-manager.io/cluster-issuer: nephtek-com-issuer
-      ingress:
-        hosts:
-          - prometheus.nas.nephtek.com
-        annotations:
-          cert-manager.io/cluster-issuer: nephtek-com-issuer
-      prometheusSpec:
-        thanos:
-          objectStorageConfig:
-            name: thanos-storage-config
-            key: thanos-storage-config.yaml
-        externalLabels:
-          cluster: truenas
-    thanosRuler:
-      serviceAccount:
-        name: kps-thanos
-        annotations:
-          cert-manager.io/cluster-issuer: nephtek-com-issuer
-    alertmanager:
-      config:
-        global:
-          smtp_auth_username: AKIAQ5CBIXL2AWR56BFT
-          smtp_auth_password: BNp9R4lZ9efySbV7M0zXOL3OuqTvKLtZfjcM+rXwhJQs
-      ingress:
-        annotations:
-          cert-manager.io/cluster-issuer: nephtek-com-issuer
-        hosts:
-          - alertmanager.nas.nephtek.com
-    grafana:
-      adminPassword: D8e!%g4keRy3Kmfk
-      ingress:
-        annotations:
-          cert-manager.io/cluster-issuer: nephtek-com-issuer
-        hosts:
-          - grafana.nas.nephtek.com
-      env:
-        GF_SERVER_DOMAIN: grafana.nas.nephtek.com
-        GF_SERVER_ROOT_URL: https://grafana.nas.nephtek.com
-        GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana.nas.nephtek.com
-        GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: pBHnxBljrh0w7hwlGWujUSZAOoBfRPmD
+    values.yaml: ENC[AES256_GCM,data:KFFP94loEqcCJ6ajtx52KfUMIGRcboeKh7rgUAxFWH57IsyX4BHR1qH25AAs6aP4i9ok696P01NmtIdJc3o0jyRrvlOtXq5wz5A+NZnCEKegqpGMEqkewBObnIpPMH6V6M6zYw7oUaOoXSwbPB80ER1uHpEvEkeNRexhDnkBarUzhixE/dW/HOe2YS0n225a+ICjN8EsE8dYgDzQGfto7w3uCh2bVznaz4Uggv23cRV7o4DMMEj3215IQhlb5bCj21KqsUO1AkyJYctYQHm7d06dNxspM873tfY2V+mkBD0sUNcPlRddqnvXKwfLqoO43lUv5IygfetX7LR9stRsOgyMtnLQ4eiM7F4DQlPO+lBHqZo42RJHTdvLE1yqk90iZUQW46/oHlWkg3aqWvZu1LvXC0rSdVMTEjkDPVkicfoS36LlvNUzSQDTYWEmNSktcLU3fllidXHjsAu5qP6XRClzLTzBpi0/fsLkbTDL5zw4fcOwtVLC+dgf2fv0kYoZzrH6FFY1teJCfdHhkwrzaNGXq7ECqoG+Wr3RxMAB4QZ1eiz6vnOHMoWvWYJ6VfFUxsBGqCfcKaxIzFRj6x+8z0EMvt7JeKjA3fVe5cLQWx/VdZZQf3mrY98jh0krzpQ6cqe49vER8lQLftU3V+NVxxAYyup3jeKJMrQVA0pyKkTfRE6nEleUFUQsjixvM2qd5V8A3qmE2dNroO+2J/IBQIxzNRuhIaD0S1TRGvqfvVzZjubkTk10CzOtW4RQVwFohQcDnMiK+nbRMWTLzHFgrb5zHN+TA42k/grlrO9hX6VVIONR1JmjphH8M2TzilUm1T0DotMUsDavtvsB2XBjFuGeP2KcLOaIzOvahyhyWQWP3H1KryL+yAby254FuSaXwuhllwMRnVa4Wgso+xOgfx010cO5iMBqRLwFOHOOMHUkGLuk6Og5eIm3U7tE9uf66NnJ95d0WzOWV3CzzVij1NyavBeZN0m6qKv/NkgEDzmPJ+WxbEg7W+NOacXh+AKCHNuQlEjhThFsYYDgI26WdeA62l74i/m1kN2ZfVa/dn4JlWNx84C8F+pTU5D84eYHAcU17mh3A3x7+RNWJRbIHIxXWdDt9jLRzybnozOly5Y1hEGNNSO5aHQIahfhvde2Xe2WPxr+5RgPHUUe7HshdEX9ksk0eytHQB/7e72ym35Qi+rWy4pRicMHNA2RiXYqIqA6NuoejPsBYO1szn0zJtHHOjy2OBH6zePp6T/NUfBkuKc4JTXijZ8PF4ObTJ6iMcTU0z0fQSn2Mkvpe3FVPV8RTYO5PVWl4qoWoFifrzAYR7NYWCKmBrcERk5a3xsVvTeIkbvsavLyhMvPyl4Apd+m4wfT+VCydP4rZJ06q5SETBDdGjqmfZ85Jkvx6VTABaNxhcAJnnlM98OCGhnnQofelA1w+FJKl5DBmrK+dCvzuIYJNXUsq6ZXDt8irOn25KEKuzeXZJr6kpET5EPb69VRCsI2KD/sD08ivqqd3Gu16aIgk01DXLwfU3mKuNfYBsEnRjkXrVZZ4UmuGoppTAm5/jJrfyS0bb4MoVCEKDIWHFQEAJKjUyO2YzGDULnUkBpppMuN+/sCGwxV7MDwOtAd4VeZcpsR+gHgCGuPPXrawOmU1uYcaAqZqNbuI0iNU1UEurcwxKDBJWB28XaoFFPyescZjn9P4dM5tJ4rH5OpDma6tCfWFGO52hCGpZ4j2iljOvePefMpUyYOYKjiZxmhWKOdxoAdtamYgEb5cyX0yTflOrmPkbPRpg3DNGYqao6HgqlNIAelnBTN9XNLkxd8eeXFxgd1vHiE96EpvDqs+41F92bU,iv:t4pqja6CXG9yYxxMDC4ZgKlQ0HuvUXXwEbNapDvyqrY=,tag:YvRjpExju79K+ONyMmIQLQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-05-16T13:54:25Z"
+    mac: ENC[AES256_GCM,data:gXlxU9btLAtt0TA2J26gZtCtn+Y7Km6HyjKIMB5hWW+P9mbT3Hq5nErVJsKB2hDajOVYxPj1L45EMSBXxlw/IQalrj4cOH9EQ0BtaCargS8geuit97Igvpk0lsrIv/kCcJNSmh276tPVwKQ+mpHQgnxZYEGM8fq7S4IfFRwI2gA=,iv:pnLdIZrHqzyWZzI0GD9DZaB08RtXdDeQ4kwVnt+7gmc=,tag:YD26DV8ayw4PjYpqQaadHg==,type:str]
+    pgp:
+        - created_at: "2023-05-16T13:54:21Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMAyb6x/8CZJfJAQ/+MeMLnnWX6n16rE2ksNqsVqvrO11egEkwVWbU/Ggzg4Zn
+            7agGvE+wkbhfSTj5/To5Ren2uG8T4PCuv3KSq+fbMJD334SBUH+DnZl1WzHWRyU7
+            GdRjTiVKoqltLsyzGQkkvKQIzr/lBTJNBk/NqYn6ggYfhTpfmLClR2dRArEbITRX
+            2Gp79wf7pU4/Ua+Ayh0lYyg+7sWMgPKEL1//Y10mOJNQ1/kSycD5z6n8NBjSVpXh
+            roA+x4zh3051weUalrprbB7MWgRenepVNKUSx9R0M07toMiE+EgqZQ3ov+CkTvEu
+            u9xVKUHp4R6OljbYIMYNGW8/fndt1qiTCHClTgiT/dxSaPjOuoLZdT0Kt31ZPWnl
+            g/aTtbuV/u+SJmL9qUR0J2suRUFOz8GMovbmV8uMDG/4lfMhk0uhihorMnuMuVaT
+            mtwV+sgerBwsTgIfkod+v7fQTh+CAdjE9ruzTYq2r8gnvxSQpCE3AjmNpPOnqqLU
+            PK3bIPCJm5wobqTdYIpi7XUL/cFgS5yHZUKj69Fn72ALprVDP9E5D68EVP1BCZh/
+            C7L+pD4DELJl8DTsduh4xwLEyhSoDHhunFxii0s8Wk/hWeui1fhfO4RggglYUwxT
+            Is+1P1HE64BWp0xfEVe7e9ZPoy/KKXm5dh6Tf2FrrfshWfOY6o+eFcMxS5jE//jU
+            ZgEJAhDxS0NqiFaGe6fWKlvFaQQS/moyqUgLMIZ/7yD3/v2jrmmU+nyeX80zHELF
+            FLN0cmQrP0yk9Y8r7Cpu9+WHzmti43dpktQwHiQPNvcGvzhUxeUXDzXdfN/UWcH9
+            Tfkd0gxPRg==
+            =L941
+            -----END PGP MESSAGE-----
+          fp: B620B1488925A1B17D73C4A6F87AF8D7968C85E3
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3
