@@ -4,9 +4,4 @@ namespace: tempo
 resources:
 - ../base/
 - release.yaml
-configMapGenerator:
-  - name: tempo-distributed-config
-    files:
-      - values.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+- configmap.yaml

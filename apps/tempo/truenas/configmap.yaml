@@ -1,0 +1,45 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+data:
+    values.yaml: ENC[AES256_GCM,data:yzBdKkagsQ12GteO8Dple264Hkd2BDGcbtRS131c+KgjZAbwOwJlbm32BdXVdJiEWTfWWjMeh42DqeXoaeH7z5mZ1DFUTLhTqFBy89SGbHmVcwJF+w1BLjxBoADi94up7Q==,iv:gZsRbi5tHHrF3WWLyiSd4T1qQlh75xtSlqHNexljisU=,tag:M9g7o1kzBOkFGwrtCr/Ekw==,type:str]
+kind: ConfigMap
+metadata:
+    labels:
+        kustomize.toolkit.fluxcd.io/name: app-tempo
+        kustomize.toolkit.fluxcd.io/namespace: flux-system
+    name: tempo-distributed-config
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-05-16T16:28:30Z"
+    mac: ENC[AES256_GCM,data:3DhUa6XUyjIJlpk1GL1mCH0qWp3OkMx2xU7x0J7BNQBIt3n0/ebVmK2hAtOpAkT5VFFSb4bxn8NxN5cvlgIl8WqoJuLYseDQ32aQ6ElnaV8x1ef35vihmARq6XigkMLhXS3wih3dlIHNyWc19AaLz2Lv3sG+WL7PyAEkrNCxM5A=,iv:gkwljcrBrQWP4j/7V9zOA8CVYRLlH+qsheutcZ1ymOI=,tag:nKBX3hPN3BcZZwxzfk12Eg==,type:str]
+    pgp:
+        - created_at: "2023-05-16T16:28:29Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMAyb6x/8CZJfJARAAjjfsoTFXY8KR2jBWxVsHe8b3NzCOtpP+TtRphWFivFtb
+            PIQk3QLZ7QYE5yhAQVQffRpNtKq3jzymEgamytgHrR79NsFYnVffQx/5AVx0ggK4
+            aVUrERUQEP7hWyLXpEWwyIfXeiI0s9Cr2becSkVqAM1hRqdVAKB7DV2jhYDSHHSB
+            xdh40EM3pGEnXVKIa3hxGKhfloEUfEyNnLtdWH2SKNEDRrJR6RXZxTDf7KRcaea7
+            W4+tYe94AfgE7fsGCKwn9DozN5V+TuEj/GFozEyTYhzpARxJOtJ+OnzDr13qDHFD
+            YJpzCafx5IHL9HiXTzASA8oTasaZpODq1Fb58yQNrKJ0q3xixfJG0eHtiWPOlgsM
+            tRjA/LDYLY7tYjv5sMdMi4B1n5QdN8Ks+8c9tm8NIfMxVcRnM8hapWbGTFDnirBn
+            afdXuJPTIKh3Jnmj1h1CVs886kcfnKEhb6a1aO5pw8ri+k0jArBqZ1CzxAjO9WC8
+            1tBqwPrQPT10ZudrbVUeWOYOHhzmRi4i8v6kdhNIc0OTwWI9HiNZRA77WMznjYrg
+            mwem6+yMvNlN+UVBIk0uie6i3hL2EmshD0heKzQlRYjt2rS/PGBl2iXGdblLVI9L
+            gMhqT34YQTnddjD9hGkXKaxqBWF4msBkZRk9eW43yLvTGcda22uojQDPm2oTXtvU
+            ZgEJAhB4BMqRul0kYh9fQntVqeQqsQRTETupkBi6lupXsSr70uWCAmBwVHcHu76g
+            gUQK+JRDY+nhBaaHfgulA7wssSzb/FsSUQp9MZl3OWU0T21yMtcDQFJcORToAP3s
+            KJIIX1Qa2A==
+            =QNS8
+            -----END PGP MESSAGE-----
+          fp: B620B1488925A1B17D73C4A6F87AF8D7968C85E3
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3
